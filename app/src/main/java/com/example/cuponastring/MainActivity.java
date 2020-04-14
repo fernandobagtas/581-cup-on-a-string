@@ -34,8 +34,8 @@ public abstract class MainActivity extends AppCompatActivity implements SensorEv
         pager = findViewById(R.id.pager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         ContactA contact1 = new ContactA("Contact 1", "forsen_cd");
-        ContactA contact2 = new ContactA("Contact 2", "cute-duck");
-        ContactA contact3 = new ContactA("Contact 3", "cute-piggy");
+        ContactA contact2 = new ContactA("Contact 2", "cute_duck");
+        ContactA contact3 = new ContactA("Contact 3", "cute_piggy");
 
         viewPagerAdapter.addContact(contact1);
         viewPagerAdapter.addContact(contact2);
