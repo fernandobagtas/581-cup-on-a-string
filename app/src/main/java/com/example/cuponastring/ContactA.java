@@ -2,6 +2,7 @@ package com.example.cuponastring;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,10 @@ public class ContactA extends Fragment {
 
         contactName.setText(cName);
 
-        int id = getResources().getIdentifier(cImage, "drawable", "your.package.name");
+        Context context = this.getContext();
+        Resources resources = context.getResources();
+
+        int id = resources.getIdentifier(cImage, "drawable", context.getPackageName());
         contactImage.setImageResource(id);
 
         return view;

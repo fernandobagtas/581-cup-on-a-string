@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-public abstract class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     ViewPager pager;
     ViewPagerAdapter viewPagerAdapter;
@@ -195,10 +195,9 @@ public abstract class MainActivity extends AppCompatActivity implements SensorEv
         }
 
     }
-
+    */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // not in use
     }
-    */
 }
