@@ -9,67 +9,6 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="600dp" />
-
-    <!--
-    <ImageView
-        android:id="@+id/red_cup_down"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHeading"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="118dp"
-        android:src="@drawable/red_cup_down"
-        tools:srcCompat="@drawable/red_cup_down" />
-
-    <TextView
-        android:id="@+id/tvHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="166dp"
-        android:layout_marginTop="121dp"
-        android:gravity="center"
-        android:text="Heading: 0.0"
-        android:textColor="#FFFFFF" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/avatar_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="221dp"
-        android:layout_marginEnd="106dp"
-        android:layout_marginRight="106dp"
-        android:src="@drawable/forsen_cd"
-        app:civ_border_color="#505050"
-        app:civ_border_width="2dp" />
-
-    <TextView
-        android:id="@+id/contact_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="445dp"
-        android:text="Contact's Name"
-        android:textColor="#505050"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-      -->
+        android:layout_height="700dp" />
 
 </RelativeLayout>

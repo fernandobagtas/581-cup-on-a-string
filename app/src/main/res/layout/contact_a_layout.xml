@@ -10,16 +10,13 @@
         android:id="@+id/red_cup_down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHeading"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="118dp"
         android:src="@drawable/red_cup_down"
         tools:srcCompat="@drawable/red_cup_down" />
 
@@ -29,11 +26,9 @@
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="221dp"
+        android:layout_marginTop="280dp"
         android:layout_marginEnd="106dp"
-        android:layout_marginRight="106dp"
         app:civ_border_color="#505050"
         app:civ_border_width="2dp" />
 
@@ -43,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="445dp"
-        android:text="Contact's Name"
+        android:layout_marginTop="520dp"
+        android:text="@string/contact_s_name"
         android:textColor="#505050"
         android:textSize="24sp"
         android:textStyle="bold" />
