@@ -1,10 +1,12 @@
 package com.example.cuponastring;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -18,10 +20,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     ViewPager pager;
     ViewPagerAdapter viewPagerAdapter;
+    ImageView addContact;
 
     // record the compass picture angle turned
-    private float currentDegree = 0f;
-    private float talkDegree = 0f;
+    private float talkDegree = 90f;
 
     // device sensor manager
     private SensorManager mSensorManager;
@@ -30,6 +32,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addContact = (ImageView) findViewById(R.id.add_contact);
+        addContact.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addContactPressed();
+            }
+        });
 
         pager = findViewById(R.id.pager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -68,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
 
         // for the system's orientation sensor registered listeners
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR),
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
@@ -86,9 +94,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[1]);
+        //Log.d("YDegrees", String.valueOf(degree));
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
 
-        if(currentDegree < (talkDegree + 10) && currentDegree > (talkDegree - 10))
+        if(degree < (talkDegree + 10) && degree > (talkDegree - 10))
         {
             //call method in contact page to enlarge contact's image
             currentView.turnCup(true);
@@ -102,6 +111,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         //not in use
+    }
+
+    private void addContactPressed() {
+        //Log.d("AddContact", "button pressed");
+        Intent intent = new Intent(MainActivity.this, AddContact.class);
+        startActivityForResult(intent, 0);
+    }
+
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        // Collect data from the intent and use it
+        if (data != null) {
+            String name = data.getStringExtra("name");
+            String phone = data.getStringExtra("phone");
+            ContactA newContact = new ContactA(name, "contact_icon");
+            viewPagerAdapter.addContact(newContact);
+            viewPagerAdapter.notifyDataSetChanged();
+        }
     }
 
 }

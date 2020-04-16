@@ -51,7 +51,7 @@ public class ContactA extends Fragment {
     public void turnCup(boolean up) {
         float normalSize = (float) 1.0;
         float largeSize = (float) 1.5;
-        Log.d("tag", "got to turnCup()");
+        //Log.d("tag", "got to turnCup()");
         /*
         if (up) {
             //enlarge contact image

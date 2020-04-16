@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Cup on a string</string>
     <string name="contact_s_name">Contact\'s Name</string>
+    <string name="name">Name</string>
 </resources>
