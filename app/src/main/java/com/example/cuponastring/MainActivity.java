@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     ViewPager pager;
     ViewPagerAdapter viewPagerAdapter;
     ImageView addContact;
+    Button editContact;
+    ImageView dialCall;
 
     // record the compass picture angle turned
     private float talkDegree = 90f;
@@ -38,12 +41,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 addContactPressed();
             }
         });
+        editContact = (Button) findViewById(R.id.edit_contact);
+        editContact.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                editContactPressed();
+            }
+        });
+        dialCall = (ImageView) findViewById(R.id.dialup);
+        dialCall.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialCallPressed();
+            }
+        });
 
         pager = findViewById(R.id.pager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        ContactA contact1 = new ContactA("Contact 1", "forsen_cd");
-        ContactA contact2 = new ContactA("Contact 2", "cute_duck");
-        ContactA contact3 = new ContactA("Contact 3", "cute_piggy");
+        ContactA contact1 = new ContactA("Contact 1", "forsen_cd", "4031234567");
+        ContactA contact2 = new ContactA("Contact 2", "cute_duck", "5871234567");
+        ContactA contact3 = new ContactA("Contact 3", "cute_piggy", "5879876543");
 
         viewPagerAdapter.addContact(contact1);
         viewPagerAdapter.addContact(contact2);
@@ -116,16 +131,44 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void addContactPressed() {
         //Log.d("AddContact", "button pressed");
         Intent intent = new Intent(MainActivity.this, AddContact.class);
+        intent.putExtra("type", "add");
+        startActivityForResult(intent, 0);
+    }
+
+    private void editContactPressed() {
+        //Log.d("AddContact", "button pressed");
+        ContactA contact = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
+        Intent intent = new Intent(MainActivity.this, AddContact.class);
+        intent.putExtra("type", "edit");
+        intent.putExtra("cName", contact.getcName());
+        intent.putExtra("cPhone", contact.getcPhone());
+        intent.putExtra("cImage", contact.getcImage());
+        startActivityForResult(intent, 0);
+    }
+
+    private void dialCallPressed() {
+        Intent intent = new Intent(MainActivity.this, DialCall.class);
         startActivityForResult(intent, 0);
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         // Collect data from the intent and use it
-        if (data != null) {
-            String name = data.getStringExtra("name");
-            String phone = data.getStringExtra("phone");
-            ContactA newContact = new ContactA(name, "contact_icon");
+        String name = "Contact";
+        String phone = "4031239876";
+
+        if ((data != null) && ((resultCode == 1) || (resultCode == 2))) {
+            name = data.getStringExtra("name");
+            phone = data.getStringExtra("phone");
+        }
+
+        if (resultCode == 1) {
+            ContactA newContact = new ContactA(name, "contact_icon", phone);
             viewPagerAdapter.addContact(newContact);
+            viewPagerAdapter.notifyDataSetChanged();
+        }
+        else if (resultCode == 2) {
+            int currentPosition = pager.getCurrentItem();
+            viewPagerAdapter.updateContact(name, phone, currentPosition);
             viewPagerAdapter.notifyDataSetChanged();
         }
     }

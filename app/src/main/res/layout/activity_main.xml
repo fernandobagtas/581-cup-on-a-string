@@ -6,13 +6,46 @@
     android:layout_height="match_parent"
     android:background="#A5F7FF">
 
+    <Button
+        android:id="@+id/edit_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:text="Edit"
+        android:textAllCaps="false"
+        android:textColor="#3A8718"
+        android:textSize="18sp" />
+
     <ImageView
-        android:id="@+id/add_contact"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:id="@+id/call"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
+        app:srcCompat="@drawable/call" />
+
+    <ImageView
+        android:id="@+id/dialup"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="58dp"
+        android:layout_toRightOf="@id/call"
+        app:srcCompat="@drawable/dialup" />
+
+    <ImageView
+        android:id="@+id/add_contact"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="58dp"
+        android:layout_toLeftOf="@id/call"
         app:srcCompat="@drawable/plus" />
 
     <androidx.viewpager.widget.ViewPager

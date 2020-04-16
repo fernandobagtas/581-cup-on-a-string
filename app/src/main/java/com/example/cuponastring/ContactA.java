@@ -23,8 +23,10 @@ public class ContactA extends Fragment {
     private ImageView redCup;
     private ImageView contactImage;
     private TextView contactName;
+    private TextView contactPhone;
     private String cName = "Contact's Name";
     private String cImage = "cute_piggy";
+    private String cPhone = "4031234567";
 
     @Nullable
     @Override
@@ -32,9 +34,12 @@ public class ContactA extends Fragment {
         View view = inflater.inflate(R.layout.contact_a_layout, null);
         contactImage = (ImageView) view.findViewById(R.id.contact_image);
         contactName = (TextView) view.findViewById(R.id.contact_name);
+        contactPhone = (TextView) view.findViewById(R.id.contact_phone);
+
         redCup = (ImageView) view.findViewById(R.id.red_cup_down);
 
         contactName.setText(cName);
+        contactPhone.setText(cPhone);
 
         int id = getResources().getIdentifier(cImage, "drawable", "com.example.cuponastring");
         contactImage.setImageResource(id);
@@ -42,10 +47,30 @@ public class ContactA extends Fragment {
         return view;
     }
 
-    public ContactA(String name, String image) {
+    public ContactA(String name, String image, String phone) {
         super();
         this.cName = name;
         this.cImage = image;
+        this.cPhone = phone;
+    }
+
+    public void updateInfo(String name, String phone) {
+        this.cName = name;
+        this.cPhone = phone;
+        contactName.setText(name);
+        contactPhone.setText(phone);
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public String getcPhone() {
+        return cPhone;
+    }
+
+    public String getcImage() {
+        return cImage;
     }
 
     public void turnCup(boolean up) {

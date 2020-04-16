@@ -31,4 +31,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         contactList.add(contact);
     }
 
+    public void updateContact(String name, String phone, int position) {
+        ContactA contact = (ContactA) contactList.get(position);
+        contact.updateInfo(name, phone);
+        contactList.set(position, contact);
+    }
+
 }
