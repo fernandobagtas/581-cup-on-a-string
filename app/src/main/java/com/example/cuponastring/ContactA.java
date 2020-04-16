@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,31 +49,43 @@ public class ContactA extends Fragment {
         this.cImage = image;
     }
 
-    public void turnCup(boolean up) {
+    public void turnCup(boolean up, Animation anim) {
         float normalSize = (float) 1.0;
         float largeSize = (float) 1.5;
         //Log.d("tag", "got to turnCup()");
-        /*
+
         if (up) {
             //enlarge contact image
             redCup.setVisibility(View.INVISIBLE);
-            Animation scale = new ScaleAnimation(normalSize, largeSize, normalSize, largeSize);
-            scale.setDuration(750);
-            AnimationSet animSet = new AnimationSet(true);
-            animSet.setFillEnabled(true);
-            animSet.addAnimation(scale);
-            contactName.startAnimation(animSet);
+//            Animation scale = new ScaleAnimation(normalSize, largeSize, normalSize, largeSize);
+//            scale.setDuration(750);
+//            AnimationSet animSet = new AnimationSet(true);
+//            animSet.setFillEnabled(true);
+//            animSet.addAnimation(scale);
+//            contactName.startAnimation(animSet);
+            contactImage.clearAnimation();
+            //contactImage.setScaleX(normalSize);
+            //contactImage.animate().scaleX(largeSize).setDuration(750).start();
+            //contactImage.setScaleY(normalSize);
+            //contactImage.animate().scaleY(largeSize).setDuration(750).start();
+            contactImage.startAnimation(anim);
         }
         else {
-            //bring contact image to normal size
+        //bring contact image to normal size
             redCup.setVisibility(View.VISIBLE);
-            Animation scale = new ScaleAnimation(largeSize, normalSize, largeSize, normalSize);
-            scale.setDuration(750);
-            AnimationSet animSet = new AnimationSet(true);
-            animSet.setFillEnabled(true);
-            animSet.addAnimation(scale);
-            contactName.startAnimation(animSet);
-        }*/
+//            Animation scale = new ScaleAnimation(largeSize, normalSize, largeSize, normalSize);
+//            scale.setDuration(750);
+//            AnimationSet animSet = new AnimationSet(true);
+//            animSet.setFillEnabled(true);
+//            animSet.addAnimation(scale);
+//            contactName.startAnimation(animSet);
+            contactImage.clearAnimation();
+            //contactImage.setScaleX(largeSize);
+            //contactImage.animate().scaleX(normalSize).setDuration(750).start();
+            //contactImage.setScaleY(largeSize);
+            //contactImage.animate().scaleY(normalSize).setDuration(750).start();
+            contactImage.startAnimation(anim);
+        }
     }
 
 }

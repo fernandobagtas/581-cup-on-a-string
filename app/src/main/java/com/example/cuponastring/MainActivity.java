@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     // device sensor manager
     private SensorManager mSensorManager;
+
+    private TextView tvHeading;
+
+    Animation anim1;
+    Animation anim2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // initialize your android device sensor capabilities
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        tvHeading = (TextView) findViewById(R.id.tvHeading);
+
+        anim1 = AnimationUtils.loadAnimation(this, R.anim.big_anim);
+        anim2 = AnimationUtils.loadAnimation(this, R.anim.small_anim);
 
         //set the screen to fullscreen
         View view = getWindow().getDecorView();
@@ -76,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
 
         // for the system's orientation sensor registered listeners
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR),
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
@@ -95,16 +105,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[1]);
         //Log.d("YDegrees", String.valueOf(degree));
+        tvHeading.setText("Heading: " + Float.toString(degree) + " degrees");
+
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
 
+        //the position of your phone while you're upright is in the negative degrees (-180 to 180)
+        degree = -degree;
         if(degree < (talkDegree + 10) && degree > (talkDegree - 10))
         {
             //call method in contact page to enlarge contact's image
-            currentView.turnCup(true);
+            currentView.turnCup(true, anim1);
         }
         else {
             //call method to show red cup again
-            currentView.turnCup(false);
+            currentView.turnCup(false, anim2);
         }
     }
 
