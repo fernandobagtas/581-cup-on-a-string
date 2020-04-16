@@ -1,60 +1,84 @@
 package com.example.cuponastring;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements SensorEventListener {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-    // define the display assembly compass picture
-    private ImageView image;
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    ViewPager pager;
+    ViewPagerAdapter viewPagerAdapter;
+    ImageView addContact;
 
     // record the compass picture angle turned
-    private float currentDegree = 0f;
-    private float talkDegree = 0f;
+    private float talkDegree = 90f;
 
     // device sensor manager
     private SensorManager mSensorManager;
 
-    TextView tvHeading;
+    private TextView tvHeading;
+
+    Animation anim1;
+    Animation anim2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addContact = (ImageView) findViewById(R.id.add_contact);
+        addContact.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addContactPressed();
+            }
+        });
 
-        //
-        image = (ImageView) findViewById(R.id.red_cup_down);
+        pager = findViewById(R.id.pager);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ContactA contact1 = new ContactA("Contact 1", "forsen_cd");
+        ContactA contact2 = new ContactA("Contact 2", "cute_duck");
+        ContactA contact3 = new ContactA("Contact 3", "cute_piggy");
 
-        // TextView that will tell the user what degree is he heading
-        tvHeading = (TextView) findViewById(R.id.tvHeading);
+        viewPagerAdapter.addContact(contact1);
+        viewPagerAdapter.addContact(contact2);
+        viewPagerAdapter.addContact(contact3);
+        pager.setAdapter(viewPagerAdapter);
 
         // initialize your android device sensor capabilities
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        tvHeading = (TextView) findViewById(R.id.tvHeading);
+
+        anim1 = AnimationUtils.loadAnimation(this, R.anim.big_anim);
+        anim2 = AnimationUtils.loadAnimation(this, R.anim.small_anim);
 
         //set the screen to fullscreen
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility
-            (
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                    // Set the content to appear under the system bars so that the
-                    // content doesn't resize when the system bars hide and show.
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    // Hide the nav bar and status bar
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-            );
+                (
+                        View.SYSTEM_UI_FLAG_IMMERSIVE
+                                // Set the content to appear under the system bars so that the
+                                // content doesn't resize when the system bars hide and show.
+                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                // Hide the nav bar and status bar
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                );
+
     }
 
     @Override
@@ -80,40 +104,44 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[1]);
-
+        //Log.d("YDegrees", String.valueOf(degree));
         tvHeading.setText("Heading: " + Float.toString(degree) + " degrees");
 
-        // create a rotation animation (reverse turn degree degrees)
-        RotateAnimation ra = new RotateAnimation(
-                currentDegree,
-                -degree,
-                Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f);
+        ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
 
-        // how long the animation will take place
-        ra.setDuration(210);
-
-        // set the animation after the end of the reservation status
-        ra.setFillAfter(true);
-
-        // Start the animation
-        //image.startAnimation(ra);
-        currentDegree = -degree;
-
-        if(currentDegree < (talkDegree + 10) && currentDegree > (talkDegree - 10))
+        //the position of your phone while you're upright is in the negative degrees (-180 to 180)
+        degree = -degree;
+        if(degree < (talkDegree + 10) && degree > (talkDegree - 10))
         {
-            image.setImageResource(R.drawable.forsen_cd);
+            //call method in contact page to enlarge contact's image
+            currentView.turnCup(true, anim1);
         }
-        else
-        {
-            image.setImageResource(R.drawable.red_cup_down);
+        else {
+            //call method to show red cup again
+            currentView.turnCup(false, anim2);
         }
-
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // not in use
+        //not in use
     }
+
+    private void addContactPressed() {
+        //Log.d("AddContact", "button pressed");
+        Intent intent = new Intent(MainActivity.this, AddContact.class);
+        startActivityForResult(intent, 0);
+    }
+
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        // Collect data from the intent and use it
+        if (data != null) {
+            String name = data.getStringExtra("name");
+            String phone = data.getStringExtra("phone");
+            ContactA newContact = new ContactA(name, "contact_icon");
+            viewPagerAdapter.addContact(newContact);
+            viewPagerAdapter.notifyDataSetChanged();
+        }
+    }
+
 }
