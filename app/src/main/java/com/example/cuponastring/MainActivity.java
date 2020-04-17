@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.os.CountDownTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     // record the compass picture angle turned
     private float talkDegree = 90f;
+    private float endDegree = 180f;
 
     // device sensor manager
     private SensorManager mSensorManager;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     Animation anim1;
     Animation anim2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,13 +115,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         //the position of your phone while you're upright is in the negative degrees (-180 to 180)
         degree = -degree;
+
         if(degree < (talkDegree + 10) && degree > (talkDegree - 10))
         {
-            //call method in contact page to enlarge contact's image
+            Log.d("cFlag", "true");
             currentView.turnCup(true, anim1);
+            //call method in contact page to enlarge contact's image
+            //currentView.turnCup(cFlag, anim1);
         }
-        else {
+        else  if(degree < (endDegree + 10) && degree > 170f){
             //call method to show red cup again
+            Log.d("cFlag", "false");
             currentView.turnCup(false, anim2);
         }
     }
