@@ -3,6 +3,7 @@ package com.example.cuponastring;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +30,7 @@ public class ContactA extends Fragment {
     private String cName = "Contact's Name";
     private String cImage = "cute_piggy";
     private String cPhone = "4031234567";
+    private Chronometer chronometer;
 
     @Nullable
     @Override
@@ -35,6 +39,8 @@ public class ContactA extends Fragment {
         contactImage = (ImageView) view.findViewById(R.id.contact_image);
         contactName = (TextView) view.findViewById(R.id.contact_name);
         contactPhone = (TextView) view.findViewById(R.id.contact_phone);
+        chronometer = (Chronometer) view.findViewById(R.id.chronometer1);
+        chronometer.setVisibility(View.INVISIBLE);
 
         redCup = (ImageView) view.findViewById(R.id.red_cup_down);
 
@@ -74,30 +80,32 @@ public class ContactA extends Fragment {
     }
 
     public void turnCup(boolean up) {
-        float normalSize = (float) 1.0;
-        float largeSize = (float) 1.5;
-        //Log.d("tag", "got to turnCup()");
-        /*
+        final float normalSize = 1.0f;
+        final float largeSize = 1.8f;
+
         if (up) {
-            //enlarge contact image
             redCup.setVisibility(View.INVISIBLE);
-            Animation scale = new ScaleAnimation(normalSize, largeSize, normalSize, largeSize);
-            scale.setDuration(750);
-            AnimationSet animSet = new AnimationSet(true);
-            animSet.setFillEnabled(true);
-            animSet.addAnimation(scale);
-            contactName.startAnimation(animSet);
+            contactName.setVisibility(View.INVISIBLE);
+            contactPhone.setVisibility(View.INVISIBLE);
+            Animation scale = new ScaleAnimation(normalSize, largeSize, normalSize, largeSize, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            scale.setDuration(1000);
+            scale.setFillAfter(true);
+            contactImage.startAnimation(scale);
+            chronometer.setVisibility(View.VISIBLE);
+            chronometer.setBase(SystemClock.elapsedRealtime());
+            chronometer.start();
         }
         else {
-            //bring contact image to normal size
             redCup.setVisibility(View.VISIBLE);
-            Animation scale = new ScaleAnimation(largeSize, normalSize, largeSize, normalSize);
-            scale.setDuration(750);
-            AnimationSet animSet = new AnimationSet(true);
-            animSet.setFillEnabled(true);
-            animSet.addAnimation(scale);
-            contactName.startAnimation(animSet);
-        }*/
+            contactName.setVisibility(View.VISIBLE);
+            contactPhone.setVisibility(View.VISIBLE);
+            Animation scale = new ScaleAnimation(largeSize, normalSize, largeSize, normalSize, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            scale.setDuration(1000);
+            scale.setFillAfter(true);
+            contactImage.startAnimation(scale);
+            chronometer.stop();
+            chronometer.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

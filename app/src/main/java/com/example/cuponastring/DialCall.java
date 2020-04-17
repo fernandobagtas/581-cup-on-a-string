@@ -41,7 +41,7 @@ public class DialCall extends AppCompatActivity {
         keyZero = (ImageView) findViewById(R.id.number0_key);
         keyBack = (ImageView) findViewById(R.id.back_key);
         dialNumber = (TextView) findViewById(R.id.dial_number);
-        callButton = (ImageView) findViewById(R.id.call2);
+        callButton = (ImageView) findViewById(R.id.call_button2);
 
         keyOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -107,10 +107,9 @@ public class DialCall extends AppCompatActivity {
 
     private void dial(String num) {
         //Log.d("dialed", (String) dialNumber.getText());
-
         String currentNum = (String) dialNumber.getText() + num;
 
-        Log.d("dialed", currentNum);
+        //Log.d("dialed", currentNum);
         dialNumber.setText(currentNum);
         dialNumber.invalidate();
     }

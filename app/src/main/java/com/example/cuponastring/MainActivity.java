@@ -6,9 +6,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,9 +26,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     ImageView addContact;
     Button editContact;
     ImageView dialCall;
+    ImageView callButton;
+    boolean callInProgress = false;
 
     // record the compass picture angle turned
     private float talkDegree = 90f;
+    private float endDegree = 180f;
 
     // device sensor manager
     private SensorManager mSensorManager;
@@ -53,6 +58,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 dialCallPressed();
             }
         });
+        callButton = (ImageView) findViewById(R.id.call_button);
+        callButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (callInProgress) {
+                    callInProgress = false;
+                    callButtonPressed(false);
+                }
+                else {
+                    callButtonPressed(true);
+                    callInProgress = true;
+                }
+            }
+        });
+
 
         pager = findViewById(R.id.pager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -67,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // initialize your android device sensor capabilities
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
 
         //set the screen to fullscreen
         View view = getWindow().getDecorView();
@@ -91,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
 
         // for the system's orientation sensor registered listeners
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR),
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
@@ -107,19 +125,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        // get the angle around the z-axis rotated
+        // get the angle around the x-axis rotated
         float degree = Math.round(event.values[1]);
-        //Log.d("YDegrees", String.valueOf(degree));
+        Log.d("XDegrees", String.valueOf(degree));
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
 
-        if(degree < (talkDegree + 10) && degree > (talkDegree - 10))
+        //the position of your phone while you're upright is in the negative degrees (-180 to 180)
+        degree = -degree;
+
+        if (degree < (talkDegree + 10) && degree > (talkDegree - 10))
         {
             //call method in contact page to enlarge contact's image
-            currentView.turnCup(true);
+            callButtonPressed(true);
+            callInProgress = true;
         }
-        else {
-            //call method to show red cup again
-            currentView.turnCup(false);
+        else if (degree < (endDegree + 10) && degree > 170f){
+            //call method in contact page to shrink contact's image
+            callButtonPressed(false);
+            callInProgress = false;
         }
     }
 
@@ -144,6 +167,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         intent.putExtra("cPhone", contact.getcPhone());
         intent.putExtra("cImage", contact.getcImage());
         startActivityForResult(intent, 0);
+    }
+
+    private void callButtonPressed(boolean up) {
+        ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
+        if (up) {
+            currentView.turnCup(true);
+            addContact.setVisibility(View.INVISIBLE);
+            dialCall.setVisibility(View.INVISIBLE);
+            editContact.setVisibility(View.INVISIBLE);
+            callButton.setImageResource(R.drawable.hangup);
+        }
+        else {
+            currentView.turnCup(false);
+            addContact.setVisibility(View.VISIBLE);
+            dialCall.setVisibility(View.VISIBLE);
+            editContact.setVisibility(View.VISIBLE);
+            callButton.setImageResource(R.drawable.call);
+        }
     }
 
     private void dialCallPressed() {

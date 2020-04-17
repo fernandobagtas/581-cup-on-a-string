@@ -20,7 +20,7 @@
         android:textSize="18sp" />
 
     <ImageView
-        android:id="@+id/call"
+        android:id="@+id/call_button"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
@@ -35,7 +35,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="40dp"
         android:layout_marginBottom="66dp"
-        android:layout_toRightOf="@id/call"
+        android:layout_toRightOf="@id/call_button"
         app:srcCompat="@drawable/dialup" />
 
     <ImageView
@@ -45,7 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="66dp"
-        android:layout_toLeftOf="@id/call"
+        android:layout_toLeftOf="@id/call_button"
         app:srcCompat="@drawable/plus" />
 
     <androidx.viewpager.widget.ViewPager
