@@ -25,7 +25,7 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="59dp"
         app:srcCompat="@drawable/call" />
 
     <ImageView
@@ -34,7 +34,7 @@
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="40dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="66dp"
         android:layout_toRightOf="@id/call"
         app:srcCompat="@drawable/dialup" />
 
@@ -44,7 +44,7 @@
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="66dp"
         android:layout_toLeftOf="@id/call"
         app:srcCompat="@drawable/plus" />
 

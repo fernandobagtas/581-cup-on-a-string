@@ -13,7 +13,7 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="12dp"
         app:srcCompat="@drawable/call" />
 
     <ImageView
@@ -26,4 +26,129 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/red_cup_down"
         tools:srcCompat="@drawable/red_cup_down" />
+
+    <TextView
+        android:id="@+id/dial_number"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="530dp"
+        android:gravity="center_horizontal"
+        android:textColor="#505050"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/number1_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="205dp"
+        app:srcCompat="@drawable/dial1" />
+
+    <ImageView
+        android:id="@+id/number2_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="205dp"
+        app:srcCompat="@drawable/dial2" />
+
+    <ImageView
+        android:id="@+id/number3_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="205dp"
+        android:layout_toRightOf="@id/number2_key"
+        app:srcCompat="@drawable/dial3" />
+
+    <ImageView
+        android:id="@+id/number4_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="275dp"
+        app:srcCompat="@drawable/dial4" />
+
+    <ImageView
+        android:id="@+id/number5_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="275dp"
+        app:srcCompat="@drawable/dial5" />
+
+    <ImageView
+        android:id="@+id/number6_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="275dp"
+        android:layout_toRightOf="@id/number5_key"
+        app:srcCompat="@drawable/dial6" />
+
+    <ImageView
+        android:id="@+id/number7_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="345dp"
+        app:srcCompat="@drawable/dial7" />
+
+    <ImageView
+        android:id="@+id/number8_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="345dp"
+        app:srcCompat="@drawable/dial8" />
+
+    <ImageView
+        android:id="@+id/number9_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="345dp"
+        android:layout_toRightOf="@id/number8_key"
+        app:srcCompat="@drawable/dial9" />
+
+    <ImageView
+        android:id="@+id/number0_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="415dp"
+        app:srcCompat="@drawable/dial0" />
+
+    <ImageView
+        android:id="@+id/star_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="415dp"
+        app:srcCompat="@drawable/dial_star" />
+
+    <ImageView
+        android:id="@+id/back_key"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="415dp"
+        android:layout_toRightOf="@id/number0_key"
+        app:srcCompat="@drawable/dial_back" />
+
 </RelativeLayout>
