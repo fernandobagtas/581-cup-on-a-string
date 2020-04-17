@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 public class ContactA extends Fragment {
 
     private ImageView redCup;
@@ -26,6 +27,8 @@ public class ContactA extends Fragment {
     private TextView contactName;
     private String cName = "Contact's Name";
     private String cImage = "cute_piggy";
+
+    private boolean cFlag = false;
 
     @Nullable
     @Override
@@ -50,41 +53,65 @@ public class ContactA extends Fragment {
     }
 
     public void turnCup(boolean up, Animation anim) {
-        float normalSize = (float) 1.0;
-        float largeSize = (float) 1.5;
+        final float normalSize = (float) 1.0;
+        final float largeSize = (float) 1.5;
         //Log.d("tag", "got to turnCup()");
 
-        if (up) {
+        if (up && !cFlag) {
+            cFlag = true;
             //enlarge contact image
             redCup.setVisibility(View.INVISIBLE);
-//            Animation scale = new ScaleAnimation(normalSize, largeSize, normalSize, largeSize);
-//            scale.setDuration(750);
-//            AnimationSet animSet = new AnimationSet(true);
-//            animSet.setFillEnabled(true);
-//            animSet.addAnimation(scale);
-//            contactName.startAnimation(animSet);
+            contactName.setVisibility(View.INVISIBLE);
             contactImage.clearAnimation();
-            //contactImage.setScaleX(normalSize);
-            //contactImage.animate().scaleX(largeSize).setDuration(750).start();
-            //contactImage.setScaleY(normalSize);
-            //contactImage.animate().scaleY(largeSize).setDuration(750).start();
             contactImage.startAnimation(anim);
-        }
-        else {
-        //bring contact image to normal size
-            redCup.setVisibility(View.VISIBLE);
-//            Animation scale = new ScaleAnimation(largeSize, normalSize, largeSize, normalSize);
-//            scale.setDuration(750);
-//            AnimationSet animSet = new AnimationSet(true);
-//            animSet.setFillEnabled(true);
-//            animSet.addAnimation(scale);
-//            contactName.startAnimation(animSet);
-            contactImage.clearAnimation();
+
             //contactImage.setScaleX(largeSize);
-            //contactImage.animate().scaleX(normalSize).setDuration(750).start();
             //contactImage.setScaleY(largeSize);
-            //contactImage.animate().scaleY(normalSize).setDuration(750).start();
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    contactImage.setScaleX(largeSize);
+                    contactImage.setScaleY(largeSize);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
+        else if (!up && cFlag){
+            cFlag = false;
+            //bring contact image to normal size
+            redCup.setVisibility(View.VISIBLE);
+            contactName.setVisibility(View.VISIBLE);
+            contactImage.clearAnimation();
             contactImage.startAnimation(anim);
+
+            //contactImage.setScaleX(normalSize);
+            //contactImage.setScaleY(normalSize);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    contactImage.setScaleX(normalSize);
+                    contactImage.setScaleY(normalSize);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         }
     }
 
