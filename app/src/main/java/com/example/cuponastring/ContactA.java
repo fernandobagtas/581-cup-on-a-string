@@ -3,6 +3,7 @@ package com.example.cuponastring;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,9 @@ public class ContactA extends Fragment {
     private String cImage = "cute_piggy";
     private String cPhone = "4031234567";
     private Chronometer chronometer;
+    private final float normalSize = 1.0f;
+    private final float mediumSize = 1.3f;
+    private final float largeSize = 1.8f;
 
     @Nullable
     @Override
@@ -80,8 +84,6 @@ public class ContactA extends Fragment {
     }
 
     public void turnCup(boolean up) {
-        final float normalSize = 1.0f;
-        final float largeSize = 1.8f;
 
         if (up) {
             redCup.setVisibility(View.INVISIBLE);
@@ -105,6 +107,26 @@ public class ContactA extends Fragment {
             contactImage.startAnimation(scale);
             chronometer.stop();
             chronometer.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void startSimCall() {
+
+        int delay = 1000;
+        Handler handler = new Handler();
+        for (int i = 0; i < 6; i++) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Animation scale1 = new ScaleAnimation(normalSize, largeSize, normalSize, largeSize, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    scale1.setDuration(1000);
+                    contactImage.startAnimation(scale1);
+                    Animation scale2 = new ScaleAnimation(normalSize, mediumSize, normalSize, mediumSize, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    scale2.setDuration(1000);
+                    redCup.startAnimation(scale2);
+                }
+            }, delay);
+            delay += 1000;
         }
     }
 

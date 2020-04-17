@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Button editContact;
     ImageView dialCall;
     ImageView callButton;
+    ImageView simCall;
     boolean callInProgress = false;
 
     // record the compass picture angle turned
@@ -69,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     callButtonPressed(true);
                     callInProgress = true;
                 }
+            }
+        });
+        simCall = (ImageView) findViewById(R.id.sim_call);
+        simCall.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                simCallPressed();
             }
         });
 
@@ -127,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // get the angle around the x-axis rotated
         float degree = Math.round(event.values[1]);
-        Log.d("XDegrees", String.valueOf(degree));
+        //Log.d("XDegrees", String.valueOf(degree));
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
 
         //the position of your phone while you're upright is in the negative degrees (-180 to 180)
@@ -172,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void callButtonPressed(boolean up) {
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
         if (up) {
+            currentView.stopSimCall();
             currentView.turnCup(true);
             addContact.setVisibility(View.INVISIBLE);
             dialCall.setVisibility(View.INVISIBLE);
@@ -190,6 +198,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void dialCallPressed() {
         Intent intent = new Intent(MainActivity.this, DialCall.class);
         startActivityForResult(intent, 0);
+    }
+
+    private void simCallPressed() {
+        ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
+        currentView.startSimCall();
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
