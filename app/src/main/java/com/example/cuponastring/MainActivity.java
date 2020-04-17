@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     ViewPager pager;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     ImageView callButton;
     ImageView simCall;
     boolean callInProgress = false;
+    MediaPlayer mPlayer;
 
     // record the compass picture angle turned
     private float talkDegree = 90f;
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 simCallPressed();
             }
         });
+        mPlayer = MediaPlayer.create(MainActivity.this, R.raw.ringtone);
 
 
         pager = findViewById(R.id.pager);
@@ -179,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void callButtonPressed(boolean up) {
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
         if (up) {
+            mPlayer.stop();
             currentView.stopSimCall();
             currentView.turnCup(true);
             addContact.setVisibility(View.INVISIBLE);
@@ -201,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void simCallPressed() {
+        mPlayer.start();
         ContactA currentView = (ContactA) viewPagerAdapter.getItem(pager.getCurrentItem());
         currentView.startSimCall();
     }

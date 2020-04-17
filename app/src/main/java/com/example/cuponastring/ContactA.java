@@ -35,6 +35,7 @@ public class ContactA extends Fragment {
     private final float normalSize = 1.0f;
     private final float mediumSize = 1.3f;
     private final float largeSize = 1.8f;
+    private Handler handler;
 
     @Nullable
     @Override
@@ -45,6 +46,7 @@ public class ContactA extends Fragment {
         contactPhone = (TextView) view.findViewById(R.id.contact_phone);
         chronometer = (Chronometer) view.findViewById(R.id.chronometer1);
         chronometer.setVisibility(View.INVISIBLE);
+        handler = new Handler();
 
         redCup = (ImageView) view.findViewById(R.id.red_cup_down);
 
@@ -113,8 +115,7 @@ public class ContactA extends Fragment {
     public void startSimCall() {
 
         int delay = 1000;
-        Handler handler = new Handler();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 10; i++) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -128,6 +129,10 @@ public class ContactA extends Fragment {
             }, delay);
             delay += 1000;
         }
+    }
+
+    public void stopSimCall() {
+        handler.removeCallbacksAndMessages(null);
     }
 
 }
