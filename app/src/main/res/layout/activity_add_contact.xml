@@ -55,12 +55,22 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:id="@+id/current_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="240dp"
+        app:srcCompat="@drawable/contact_icon" />
+
+    <ImageView
+        android:id="@+id/pick_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="250dp"
         app:srcCompat="@drawable/cam_icon" />
 
     <Button
@@ -69,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="560dp"
+        android:layout_marginTop="580dp"
         android:background="#00951D"
         android:text="Add Contact"
         android:textAllCaps="false"

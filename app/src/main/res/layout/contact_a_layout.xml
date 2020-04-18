@@ -38,10 +38,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="200dp"
         android:text="@string/contact_s_name"
         android:textColor="#505050"
         android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/contact_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="540dp"
+        android:text="4031234567"
+        android:textColor="#505050"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Chronometer
+        android:id="@+id/chronometer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="580dp"
+        android:textColor="#505050"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
